@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quizz Test</title>
+    <link rel="stylesheet" href="./assets/css/base.css">
+    <link rel="stylesheet" href="./assets/css/main.css">
+</head>
+<body>
+    <div id="start-quiz">
+        <a class="btn-start btn btn--size-s">Start Quiz!</a>
+    </div>
+    <div id="container-quiz">
+        <div class="quiz">
+            <h1 class="quiz__header">Question 1/10</h1>
+            <p class="quiz__question">dfusgiudgf werbwefabf asdfadsfre rgasgf afg4 fg fsdg ag rg df gaerg  agre gadfg arg  </p>
+            <div class="quiz__answers">
+                <div class="quiz__answer--item">
+                    <input type="radio" id="html" name="fav_language" value="HTML">
+                    <label for="html">HTML</label><br>
+                </div>
+                <div class="quiz__answer--item">
+                    <input type="radio" id="css" name="fav_language" value="CSS">
+                    <label for="css">CSS</label><br>
+                </div>
+                <div class="quiz__answer--item">
+                    <input type="radio" id="javascript" name="fav_language" value="JavaScript">
+                    <label for="javascript">JavaScript</label>
+                </div>  
+            </div>
+            <a class="btn-next btn disabled">Next</a>
+        </div>
+    </div>
+    <div id="end-quiz">
+        <div class="end-quiz__contain">
+            <h1>Completed</h1>
+            <a class="btn-end btn btn--size-s">Play Again</a>
+        </div>
+    </div>
+
+    <!--  -->
+    <script>
+        var btnStart = document.querySelector('.btn-start');
+        var containerQuiz = document.getElementById('container-quiz');
+
+        btnStart.onclick = function() {
+            var startQuiz = document.getElementById('start-quiz');
+
+            startQuiz.style.display = 'none';
+            containerQuiz.style.display = 'block';
+        };
+    </script>
+    <script src="./assets/js/get-quiz.js"></script>
+</body>
+</html>

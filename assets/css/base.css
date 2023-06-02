@@ -1,0 +1,48 @@
+:root {
+    --background-color: rgb(38,41,75);
+    --btn-color: rgb(208,22,36);
+    --text-color: #fff;
+}
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: inherit;
+}
+
+html {
+    box-sizing: border-box;
+}
+
+.btn {
+    width: 250px;
+    height: 40px;
+    text-decoration: none;
+    border: none;
+    border-radius: 30px;
+    padding: 0 12px;
+    font-size: 16px;
+    line-height: 40px;
+    background: var(--btn-color);
+    color: var(--text-color);
+    cursor: pointer;
+    display: inline-block;
+    text-align: center;
+}
+
+.btn.btn--size-s {
+    padding: 0 8px;
+    width: 150px;
+}
+
+.btn:hover {
+    box-shadow: 0px 0px 5px 5px #000;
+}
+
+.btn.disabled {
+    opacity: 0.5;
+}
+
+.btn.disabled:hover {
+    cursor: none;
+}
