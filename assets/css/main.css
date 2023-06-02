@@ -3,7 +3,6 @@
     width: 100vw;
     height: 100vh;
     position: relative;
-    /* display: none; */
 }
 
 .btn-start {
@@ -31,7 +30,14 @@
     min-width: 360px;
     text-align: center;
     color: var(--text-color);
+    /* display: none; */
+    clip-path: polygon(0% 0%, 0 0, 0 50%, 0 100%, 0% 100%);
+}
 
+.quiz.active {
+    clip-path: polygon(0% 0%, 100% 0%, 125% 50%, 100% 100%, 0% 100%);
+    transition: clip-path 1s ease;
+    /* display: block; */
 }
 
 .quiz__header {
@@ -55,7 +61,7 @@
 }
 
 .quiz__answer--item:hover {
-    transform: scale(1.1);
+    transform: scale(0.9);
 }
 
 .quiz__answer--item:not(:last-child) {
