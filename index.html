@@ -17,11 +17,11 @@
             <h1 class="quiz__header">Question 1/10</h1>
             <p class="quiz__question">dfusgiudgf werbwefabf asdfadsfre rgasgf afg4 fg fsdg ag rg df gaerg  agre gadfg arg  </p>
             <div class="quiz__answers">
-                <div class="quiz__answer--item">
+                <div class="quiz__answer--item exactly">
                     <input type="radio" id="html" name="fav_language" value="HTML">
                     <label for="html">HTML</label><br>
                 </div>
-                <div class="quiz__answer--item">
+                <div class="quiz__answer--item wrong">
                     <input type="radio" id="css" name="fav_language" value="CSS">
                     <label for="css">CSS</label><br>
                 </div>
@@ -41,18 +41,6 @@
     </div>
 
     <!--  -->
-    <script>
-        var btnStart = document.querySelector('.btn-start');
-        var containerQuiz = document.getElementById('container-quiz');
-
-        btnStart.onclick = function() {
-            var startQuiz = document.getElementById('start-quiz');
-
-            startQuiz.style.display = 'none';
-            containerQuiz.style.display = 'block';
-        };
-    </script>
     <script src="./assets/js/get-quiz.js"></script>
-    <!-- <script src="./assets/js/next-quiz.js"></script> -->
 </body>
 </html>
