@@ -2,6 +2,8 @@ var quizAPI = 'https://opentdb.com/api.php?amount=5';
 var quizlist = [];
 var questionLength;
 var quizz = 0;
+var startTime;
+var endTime
 
 function start() {
     startQuiz();    
@@ -37,6 +39,8 @@ function startQuiz() {
                 nextQuestion();
                 // console.log(quizlist)
             });   
+            startTime = window.performance.now();
+            console.log(startTime)
         };
 }
 
@@ -106,7 +110,9 @@ function nextQuestion() {
     questionBtn.forEach((btn, i) => {
         btn.addEventListener('click', () => {
             if(i === (questionLength - 1)){
-                endQuiz();
+                endTime = window.performance.now();
+                console.log(endTime);
+                endQuiz();                
             }else {
                 quiz(i);
             }
@@ -118,6 +124,8 @@ function nextQuestion() {
 function endQuiz() {
     const containerQuiz = document.getElementById('container-quiz');
     const endQuiz = document.getElementById('end-quiz');
+    var time = endTime - startTime;
+    console.log(time);
 
     endQuiz.style.display = 'block';
     containerQuiz.style.display = 'none';
@@ -147,7 +155,7 @@ function endQuiz() {
 //play again
 function playAgain() {
     let playAgainBtn = document.querySelector('.btn-end');
-    console.log(playAgainBtn);
+    // console.log(playAgainBtn);
 
     playAgainBtn.onclick = function() {
         document.querySelectorAll('.quiz').forEach((quiz) => {
