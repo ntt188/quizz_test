@@ -4,12 +4,6 @@ var questionLength;
 var quizz = 0;
 
 function start() {
-    // getQuiz((questions) => {
-    //     // quizlist = quizlist.concat(questions.results);
-    //     // console.log(quizlist);
-    //     renderQuestion(questions.results);
-    //     nextQuestion();
-    // });
     startQuiz();    
 }
 
@@ -32,14 +26,16 @@ function startQuiz() {
         var containerQuiz = document.getElementById('container-quiz');
 
         btnStart.onclick = function() {
-            var startQuiz = document.getElementById('start-quiz');
+            const startQuiz = document.getElementById('start-quiz');
 
             startQuiz.style.display = 'none';
             containerQuiz.style.display = 'block';
 
-            getQuiz((questions) => {;
+            getQuiz((questions) => {
+                quizlist = questions.results;
                 renderQuestion(questions.results);
                 nextQuestion();
+                // console.log(quizlist)
             });   
         };
 }
@@ -48,7 +44,6 @@ function startQuiz() {
 function renderQuestion(questions) {
     let listQuestionBlock = document.querySelector('#container-quiz');
     questionLength = questions.length;
-    // console.log(questionLength);
     //tạo một mảng mới chứa các giá trị hiện theo tùy chỉnh
     let htmls = questions.map(function(question,index) {
         let answer = [];        
@@ -58,8 +53,8 @@ function renderQuestion(questions) {
         answer.sort(function(){return 0.5 - Math.random()});
         let answersHTML = answer.map(function(data){
             return `
-                <div class="quiz__answer--item">
-                    <input type="radio"  name="question${index}" value="${data}">
+                <div class="quiz__answer--item"">
+                    <input ansselect${index} type="radio" onclick="checkAnswer('${index}','${data}',this.parentElement)" name="question${index}" value="${data} >
                     <label for="html">${data}</label><br>
                 </div>
             `;
@@ -72,7 +67,7 @@ function renderQuestion(questions) {
                     <div class="quiz__answers">
                         ${answersHTML.join('')}
                     </div>
-                    <a class="btn-next btn disabled">Next</a>
+                    <button btnNext${index} class="btn-next btn disabled" disabled>Next</button>
                 </div>
                 `;
         }
@@ -83,17 +78,12 @@ function renderQuestion(questions) {
             <div class="quiz__answers">
                 ${answersHTML.join('')}
             </div>
-            <a class="btn-next btn disabled">Next</a>
+            <button btnNext${index} class="btn-next btn disabled" disabled>Next</button>
         </div>
         `;
     });
     //hiện các câu hỏi lên trang
     listQuestionBlock.innerHTML = htmls.join('');
-
-    
-    // questionHandling(questions);
-    
-    
 }
 
 //xử lý chuyển câu hỏi
@@ -126,49 +116,109 @@ function nextQuestion() {
 
 //khi đến câu hỏi cuối thì chuyển giao diện kết quả
 function endQuiz() {
-    var containerQuiz = document.getElementById('container-quiz');
-    var endQuiz = document.getElementById('end-quiz');
+    const containerQuiz = document.getElementById('container-quiz');
+    const endQuiz = document.getElementById('end-quiz');
 
     endQuiz.style.display = 'block';
     containerQuiz.style.display = 'none';
+
+    const endQuizContain = document.querySelector('.end-quiz__contain');
+    let html= '';
+    if(quizz >= (questionLength / 2)) {
+        html += `
+            <h1>congratulations!!</h1>
+            <p>You are amazing!!</p>
+            <p>${quizz}/${questionLength} correct answers</p>
+            <a class="btn-end btn btn--size-s">Play Again</a>
+        `;
+    }else {
+        html += `
+            <h1>Completed!</h1>
+            <p>Better luck next time!</p>
+            <p>${quizz}/${questionLength} correct answers</p>
+            <a class="btn-end btn btn--size-s">Play Again</a>
+        `;
+    }
+
+    endQuizContain.innerHTML = html;
+    playAgain();
+}
+
+//play again
+function playAgain() {
+    let playAgainBtn = document.querySelector('.btn-end');
+    console.log(playAgainBtn);
+
+    playAgainBtn.onclick = function() {
+        document.querySelectorAll('.quiz').forEach((quiz) => {
+            quiz.remove;
+        });
+        const startQuiz = document.getElementById('start-quiz');
+        const endQuiz = document.getElementById('end-quiz');
+
+        endQuiz.style.display = 'none';
+        startQuiz.style.display = 'block';
+        quizz=0;
+    };
 }
 
 //Xử lý khi trả lời câu hỏi
-function questionHandling(questions) {
-    const total = 0;
-    questions.forEach(function(question, index) {
-        const listAnswer = document.querySelectorAll(`input[name="question${index}"]`);
+function questionHandling(kq,questions) {
+    // const total = 0;
+    // questions.forEach(function(question, index) {
+    //     const listAnswer = document.querySelectorAll(`input[name="question${index}"]`);
         
-        const exactly = function(i) {
-            // listAnswer.forEach((answer) => {
-            //     answer.setAttribute('disabled');
-            // });
+    //     const exactly = function(i) {
+    //         listAnswer.forEach((answer) => {
+    //             answer.setAttribute('disabled');
+    //         });
 
-            listAnswer[i].classList.add('exactly');
-        };
-        const wrong = function(i) {
-            // listAnswer.forEach((answer) => {
-            //     answer.setAttribute('disabled');
-            // });
+    //         listAnswer[i].classList.add('exactly');
+    //     };
+    //     const wrong = function(i) {
+    //         listAnswer.forEach((answer) => {
+    //             answer.setAttribute('disabled');
+    //         });
 
-            listAnswer[i].classList.add('wrong');
-        };
+    //         listAnswer[i].classList.add('wrong');
+    //     };
 
-        listAnswer.forEach((answer, i) => {
-            answer.addEventListener('change', () => {
-                if(answer.value == question.correct_answer){
-                    exactly(i);
-                }else {
-                    wrong(i);
-                }
-            });
-        });
-    });
+    //     // listAnswer.forEach((answer, i) => {
+    //     //     answer.addEventListener('change', () => {
+    //     //         if(answer.value == question.correct_answer){
+    //     //             exactly(i);
+    //     //         }else {
+    //     //             wrong(i);
+    //     //         }
+    //     //     });
+    //     // });
+    //     const exactly = function(i) {
+    //         // listAnswer.forEach((answer) => {
+    //         //     answer.setAttribute('disabled');
+    //         // });
+
+    //         listAnswer[i].classList.add('exactly');
+    //     };
+        
+    // });
+
+    if(kq) {
+
+    }
 }
 
 //Kiểm tra câu trả lời
-function checkAnswer() {
-    
-    questionHandling(quizlist);
-    //xử lý khi click
+function checkAnswer(index,data,element) {
+    document.querySelectorAll(`[ansselect${index}]`).forEach((item) => {
+        item.disabled = 'true';
+    });
+    let btnNext = document.querySelector(`[btnNext${index}]`);
+    btnNext.removeAttribute('disabled');
+    btnNext.classList.remove('disabled');
+    if (quizlist[index].correct_answer == data) {
+        element.classList.add('exactly');
+        quizz++;
+    }else {
+        element.classList.add('wrong');
+    }
 }
