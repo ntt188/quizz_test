@@ -3,18 +3,15 @@ var quizlist = [];
 var questionLength;
 var quizz = 0;
 var startTime;
-var endTime
+var endTime;
 
-function start() {
-    startQuiz();    
-}
 
-start();
+startQuiz();   
 
 //callAPI
 //Lấy dữ liệu về
-function getQuiz(callBack) {
-    fetch(quizAPI)
+async function getQuiz(callBack) {
+    await fetch(quizAPI)
         .then(function(response) {
             return response.json();
         }) 
@@ -27,13 +24,12 @@ function startQuiz() {
     var btnStart = document.querySelector('.btn-start');
         var containerQuiz = document.getElementById('container-quiz');
 
-        btnStart.onclick = function() {
+        btnStart.onclick = async function() {
             const startQuiz = document.getElementById('start-quiz');
 
-            startQuiz.style.display = 'none';
-            containerQuiz.style.display = 'block';
+            
 
-            getQuiz((questions) => {
+            await getQuiz((questions) => {
                 quizlist = questions.results;
                 renderQuestion(questions.results);
                 nextQuestion();
@@ -42,6 +38,9 @@ function startQuiz() {
                 // console.log(startTime)
             });   
             
+
+            startQuiz.style.display = 'none';
+            containerQuiz.style.display = 'block';
         };
 }
 
