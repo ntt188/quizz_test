@@ -21,27 +21,28 @@ async function getQuiz(callBack) {
 //Xử lý
 //start quiz
 function startQuiz() {
-    var btnStart = document.querySelector('.btn-start');
-        var containerQuiz = document.getElementById('container-quiz');
+    let btnStart = document.querySelector('.btn-start');
+    let containerQuiz = document.getElementById('container-quiz');
 
-        btnStart.onclick = async function() {
-            const startQuiz = document.getElementById('start-quiz');
+    btnStart.onclick = async function() {
+        btnStart.disabled = true;
+        const startQuiz = document.getElementById('start-quiz');
 
-            
+        
 
-            await getQuiz((questions) => {
-                quizlist = questions.results;
-                renderQuestion(questions.results);
-                nextQuestion();
-                // console.log(quizlist)
-                startTime = window.performance.now();
-                // console.log(startTime)
-            });   
-            
+        await getQuiz((questions) => {
+            quizlist = questions.results;
+            renderQuestion(questions.results);
+            nextQuestion();
+            // console.log(quizlist)
+            startTime = window.performance.now();
+            // console.log(startTime)
+        });   
+        
 
-            startQuiz.style.display = 'none';
-            containerQuiz.style.display = 'block';
-        };
+        startQuiz.style.display = 'none';
+        containerQuiz.style.display = 'block';
+    };
 }
 
 //reder ra các câu hỏi
@@ -156,9 +157,11 @@ function endQuiz() {
 //play again
 function playAgain() {
     let playAgainBtn = document.querySelector('.btn-end');
+    let btnStart = document.querySelector('.btn-start');
     // console.log(playAgainBtn);
 
     playAgainBtn.onclick = function() {
+        btnStart.removeAttribute('disabled');
         document.querySelectorAll('.quiz').forEach((quiz) => {
             quiz.remove;
         });
@@ -169,51 +172,6 @@ function playAgain() {
         startQuiz.style.display = 'block';
         quizz=0;
     };
-}
-
-//Xử lý khi trả lời câu hỏi
-function questionHandling(kq,questions) {
-    // const total = 0;
-    // questions.forEach(function(question, index) {
-    //     const listAnswer = document.querySelectorAll(`input[name="question${index}"]`);
-        
-    //     const exactly = function(i) {
-    //         listAnswer.forEach((answer) => {
-    //             answer.setAttribute('disabled');
-    //         });
-
-    //         listAnswer[i].classList.add('exactly');
-    //     };
-    //     const wrong = function(i) {
-    //         listAnswer.forEach((answer) => {
-    //             answer.setAttribute('disabled');
-    //         });
-
-    //         listAnswer[i].classList.add('wrong');
-    //     };
-
-    //     // listAnswer.forEach((answer, i) => {
-    //     //     answer.addEventListener('change', () => {
-    //     //         if(answer.value == question.correct_answer){
-    //     //             exactly(i);
-    //     //         }else {
-    //     //             wrong(i);
-    //     //         }
-    //     //     });
-    //     // });
-    //     const exactly = function(i) {
-    //         // listAnswer.forEach((answer) => {
-    //         //     answer.setAttribute('disabled');
-    //         // });
-
-    //         listAnswer[i].classList.add('exactly');
-    //     };
-        
-    // });
-
-    if(kq) {
-
-    }
 }
 
 //Kiểm tra câu trả lời
