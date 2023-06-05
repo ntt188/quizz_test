@@ -38,9 +38,10 @@ function startQuiz() {
                 renderQuestion(questions.results);
                 nextQuestion();
                 // console.log(quizlist)
+                startTime = window.performance.now();
+                // console.log(startTime)
             });   
-            startTime = window.performance.now();
-            console.log(startTime)
+            
         };
 }
 
@@ -111,7 +112,7 @@ function nextQuestion() {
         btn.addEventListener('click', () => {
             if(i === (questionLength - 1)){
                 endTime = window.performance.now();
-                console.log(endTime);
+                // console.log(endTime);
                 endQuiz();                
             }else {
                 quiz(i);
@@ -125,7 +126,8 @@ function endQuiz() {
     const containerQuiz = document.getElementById('container-quiz');
     const endQuiz = document.getElementById('end-quiz');
     var time = endTime - startTime;
-    console.log(time);
+    // console.log(Math.floor(time / 1000));
+
 
     endQuiz.style.display = 'block';
     containerQuiz.style.display = 'none';
@@ -136,14 +138,14 @@ function endQuiz() {
         html += `
             <h1>congratulations!!</h1>
             <p>You are amazing!!</p>
-            <p>${quizz}/${questionLength} correct answers</p>
+            <p>${quizz}/${questionLength} correct answers in ${Math.floor(time / 1000)} seconds.</p>
             <a class="btn-end btn btn--size-s">Play Again</a>
         `;
     }else {
         html += `
             <h1>Completed!</h1>
             <p>Better luck next time!</p>
-            <p>${quizz}/${questionLength} correct answers</p>
+            <p>${quizz}/${questionLength} correct answers in ${Math.floor(time / 1000)} seconds.</p>
             <a class="btn-end btn btn--size-s">Play Again</a>
         `;
     }
